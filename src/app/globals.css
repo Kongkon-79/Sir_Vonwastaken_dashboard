@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The creator workspace has its own dark/light surface, independent of auth forms. */
+.studio-shell {
+  background: #0b0b12;
+  color: #f1f5f9;
+}
+
+html.light .studio-shell {
+  background: #f6f8fb;
+  color: #18212b;
+}
+
+html.light .studio-shell aside,
+html.light .studio-shell header {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: #e2e8f0;
+}
+
+html.light .studio-shell [class*="bg-white"] {
+  background-color: #ffffff;
+}
+
+html.light .studio-shell [class*="border-white"] {
+  border-color: #dbe3ec;
+}
+
+html.light .studio-shell [class*="text-slate-100"],
+html.light .studio-shell [class*="text-white"] {
+  color: #18212b;
+}
+
+html.light .studio-shell [class*="text-slate-300"] {
+  color: #334155;
+}
+
+html.light .studio-shell [class*="text-slate-400"] {
+  color: #64748b;
+}
+
+html.light .studio-shell [class*="text-slate-500"] {
+  color: #7890a8;
+}
+
+html.light .studio-shell [class*="bg-black/20"],
+html.light .studio-shell [class*="bg-black/30"] {
+  background-color: #f1f5f9;
+}
+
+html.light .studio-shell [class*="text-slate-200"] {
+  color: #1e293b;
+}
+
+html.light .studio-shell [class*="text-cyan-200"] {
+  color: #0e7490;
+}
+
+html.light .studio-shell [class*="text-cyan-300"] {
+  color: #0e7490;
+}
+
+html.light .studio-shell [class*="text-fuchsia-300"] {
+  color: #a21caf;
+}
+
+html.light .studio-shell [class*="text-fuchsia-400"] {
+  color: #a21caf;
+}
+
+html.light .studio-shell [class*="text-slate-600"] {
+  color: #475569;
+}
+
+html.light .studio-shell [class*="text-slate-700"],
+html.light .studio-shell [class*="text-slate-900"] {
+  color: #334155;
+}
+
+html.light .studio-shell [class*="text-amber-100"],
+html.light .studio-shell [class*="text-amber-200"],
+html.light .studio-shell [class*="text-amber-300"] {
+  color: #92400e;
+}
+
+html.light .studio-shell [class*="text-emerald-300"] {
+  color: #047857;
+}
+
+html.light .studio-shell [class*="text-emerald-200"] {
+  color: #047857;
+}
+
+html.light .studio-shell [class*="bg-emerald-400/10"],
+html.light .studio-shell [class*="bg-emerald-400/20"] {
+  background-color: #d1fae5;
+}
+
+html.light .studio-shell [class*="bg-rose-400/10"],
+html.light .studio-shell [class*="bg-rose-400/20"] {
+  background-color: #ffe4e6;
+}
+
+html.light .studio-shell [class*="text-rose-200"],
+html.light .studio-shell [class*="text-rose-300"] {
+  color: #be123c;
+}
+
+html.light .studio-shell [class*="bg-white/10"] {
+  background-color: #e2e8f0;
+}
+
+html.light .studio-shell [class*="bg-cyan-400/10"] {
+  background-color: #ecfeff;
+}
+
+html.light .studio-shell [class*="bg-fuchsia-400/10"] {
+  background-color: #fdf4ff;
+}
+
+html.light .studio-shell [class*="bg-amber-400/5"] {
+  background-color: #fffbeb;
+}
+
+html.light .studio-shell input,
+html.light .studio-shell textarea,
+html.light .studio-shell select {
+  border-color: #cbd5e1;
+  background-color: #ffffff;
+  color: #1e293b;
+}
+
+html.light .studio-shell input::placeholder,
+html.light .studio-shell textarea::placeholder {
+  color: #64748b;
+}
+
+html.light .studio-shell .studio-nav-active {
+  border-color: #67e8f9;
+  background: #ecfeff;
+  color: #0e7490;
+  box-shadow: inset 4px 0 0 #06b6d4, 0 4px 12px rgba(14, 116, 144, 0.08);
+}
+
+html.light .studio-shell .studio-nav-active svg {
+  color: #0891b2;
+}
+
+html.light .studio-shell .studio-nav-link:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+html.light .studio-shell [class*="bg-\[#151522\]"] {
+  background-color: #ffffff;
+}
+
+.studio-skeleton {
+  border-radius: 1rem;
+  background: linear-gradient(100deg, rgba(255,255,255,.06) 30%, rgba(255,255,255,.14) 50%, rgba(255,255,255,.06) 70%);
+  background-size: 200% 100%;
+  animation: studio-shimmer 1.5s ease-in-out infinite;
+}
+.studio-state-error { border-color: rgba(251,113,133,.25); background: rgba(244,63,94,.07); color: #fecdd3; }
+.studio-state-error button { background: rgba(251,113,133,.12); color: #fecdd3; }
+.studio-state-empty { border-color: rgba(148,163,184,.2); color: #94a3b8; }
+.studio-state-empty h2 { color: #f1f5f9; }
+@keyframes studio-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+html.light .studio-skeleton { background: linear-gradient(100deg, #e9eef5 30%, #f8fafc 50%, #e9eef5 70%); background-size: 200% 100%; }
+html.light .studio-state-error { border-color: #fecdd3; background: #fff1f2; color: #be123c; }
+html.light .studio-state-error button { background: #ffe4e6; color: #be123c; }
+html.light .studio-state-empty { border-color: #cbd5e1; color: #64748b; }
+html.light .studio-state-empty h2 { color: #18212b; }
+
+.auth-shell {
+  background: radial-gradient(circle at top, #182336 0%, #0b0f18 48%, #070910 100%);
+  color: #f8fafc;
+}
+
+.auth-shell main > div > div {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-color: #334155 !important;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38) !important;
+}
+
+.auth-shell h3 {
+  color: #f8fafc !important;
+}
+
+.auth-shell p,
+.auth-shell label {
+  color: #cbd5e1 !important;
+}
+
+.auth-shell input {
+  border: 1px solid #475569 !important;
+  background: #1e293b !important;
+  color: #f8fafc !important;
+  caret-color: #67e8f9;
+}
+
+.auth-shell input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.auth-shell input:focus {
+  border-color: #22d3ee !important;
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.16) !important;
+}
+
+.auth-shell button[type="button"] svg {
+  color: #94a3b8 !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+
+@layer base {
+  :root {
+    /* Primary Base (#5E6755) */
+    --primary: 89 9% 37%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Primary Shades */
+    --primary-light: 89 9% 45%;
+    --primary-lighter: 89 9% 55%;
+    --primary-dark: 89 9% 28%;
+    --primary-darker: 89 9% 20%;
+
+    /* Hover & Ring */
+    --primary-hover: 89 9% 42%;
+    --ring: 89 9% 37%;
+  }
+
+  .dark {
+    /* Primary Base adjusted for dark UI */
+    --primary: 89 9% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --primary-light: 89 9% 65%;
+    --primary-lighter: 89 9% 75%;
+    --primary-dark: 89 9% 45%;
+    --primary-darker: 89 9% 35%;
+
+    --primary-hover: 89 9% 60%;
+    --ring: 89 9% 55%;
+  }
+}
+
+
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }

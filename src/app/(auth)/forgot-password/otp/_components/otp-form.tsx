@@ -71,7 +71,7 @@ export default function OtpForm() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["verify-otp"],
     mutationFn: (values: { otp: string; email: string }) =>
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/verify`, {
+      fetch(`/api/auth-backend/auth/verify`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -95,7 +95,7 @@ export default function OtpForm() {
   const { mutate: resentOtp, isPending: resentOtpPending } = useMutation({
     mutationKey: ["fotgot-password"],
     mutationFn: (email: string) =>
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/forgot-password`, {
+      fetch(`/api/auth-backend/auth/forgot-password`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

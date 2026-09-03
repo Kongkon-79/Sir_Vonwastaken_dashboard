@@ -16,7 +16,7 @@ const SettingSidebar = () => {
   const { data, isLoading, isError, refetch } = useQuery<UserProfileApiResponse>({
     queryKey: ["user-profile"],
     queryFn: async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`, {
+      const res = await fetch(`/api/auth-backend/user/profile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

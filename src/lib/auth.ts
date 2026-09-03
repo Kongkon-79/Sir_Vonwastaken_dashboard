@@ -3,7 +3,8 @@ import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5001/api/v1";
+  process.env.NEXT_PUBLIC_BACKEND_URL ||
+  `${process.env.NEXT_PUBLIC_API_ORIGIN || "http://localhost:5001"}/api/v1`;
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -119,4 +120,3 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
 };
-

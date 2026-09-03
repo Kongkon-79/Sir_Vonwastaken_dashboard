@@ -26,7 +26,7 @@ const ProfilePicture = () => {
   const { data } = useQuery<UserProfileApiResponse>({
     queryKey: ["user-profile"],
     queryFn: () =>
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`, {
+      fetch(`/api/auth-backend/user/profile`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -40,7 +40,7 @@ const ProfilePicture = () => {
     mutationKey: ["update-profile-image"],
     mutationFn: async (formData: FormData) => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`,
+        `/api/auth-backend/user/profile`,
         {
           method: "PUT",
           headers: {

@@ -60,7 +60,7 @@ const PersonalInformationForm = () => {
     queryKey: ["user-profile"],
     queryFn: async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`,
+        `/api/auth-backend/user/profile`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -130,7 +130,7 @@ const PersonalInformationForm = () => {
         fullName: values.fullName,
       };
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/profile`, {
+      const res = await fetch(`/api/auth-backend/user/profile`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(payload)

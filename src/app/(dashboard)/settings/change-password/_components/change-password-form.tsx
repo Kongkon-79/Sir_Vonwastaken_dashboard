@@ -54,7 +54,7 @@ const ChangePasswordForm = () => {
     const { mutate, isPending } = useMutation({
     mutationKey: ["changePassword"],
     mutationFn: (values: { oldPassword: string; newPassword: string }) =>
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/change-password`, {
+      fetch(`/api/auth-backend/auth/change-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

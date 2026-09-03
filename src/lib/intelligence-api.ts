@@ -66,7 +66,8 @@ async function request<T>(path: string, init?: RequestInit, timeout = 15000): Pr
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeout);
   try {
-    const response = await fetch(`${origin}/api${path}`, { ...init, signal: controller.signal, credentials: process.env.NEXT_PUBLIC_API_WITH_CREDENTIALS === "true" ? "include" : "same-origin", headers: { "Content-Type": "application/json", ...(init?.headers || {}) } });
+    const endpoint = typeof window === "undefined" ? `${origin}/api${path}` : `/api/backend${path}`;
+    const response = await fetch(endpoint, { ...init, signal: controller.signal, credentials: process.env.NEXT_PUBLIC_API_WITH_CREDENTIALS === "true" ? "include" : "same-origin", headers: { "Content-Type": "application/json", ...(init?.headers || {}) } });
     const body = await response.json().catch(() => null);
     if (!response.ok) throw new ApiError(body?.detail || body?.message || `API request failed (${response.status})`, response.status, body);
     return body as T;

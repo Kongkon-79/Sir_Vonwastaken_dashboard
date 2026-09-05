@@ -2,8 +2,8 @@ import React from "react";
 
 const DashboardOverviewHeader = ({title, description}:{title: string, description:string}) => {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#E7E2DA] bg-[#F6F1EA]/95 px-4 py-4 pl-16 shadow-[0_2px_10px_rgba(50,59,44,0.04)] backdrop-blur-md sm:px-6 sm:py-5 sm:pl-6">
-      <div className="mx-auto w-full max-w-[1600px]">
+    <header className="sticky top-0 z-50 w-full border-b border-[#E7E2DA] bg-[#F6F1EA]/95 py-4 shadow-[0_2px_10px_rgba(50,59,44,0.04)] backdrop-blur-md sm:py-5">
+      <div className="mx-auto w-full max-w-[1600px] px-4 pl-16 sm:px-6 sm:pl-6 lg:px-6">
         <h1 className="text-xl font-bold leading-tight tracking-[-0.02em] text-primary sm:text-2xl lg:text-[28px]">
           {title}
         </h1>

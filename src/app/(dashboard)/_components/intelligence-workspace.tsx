@@ -64,8 +64,8 @@ export function Shell({
 }) {
   const pathname = usePathname();
   return (
-    <div className="studio-shell min-h-screen">
-      <aside className="fixed inset-y-0 z-20 hidden w-60 border-r border-white/10 bg-[#10101a] px-4 py-5 lg:block">
+    <div className="studio-shell min-h-screen ">
+      <aside className="fixed inset-y-0 z-20 hidden w-60 border-r border-white/10 bg-[#10101a] px-4 py-5 lg:block ">
         <Link href="/" className="mb-8 flex items-center gap-3 px-2">
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-fuchsia-500 to-cyan-400 text-base font-black">
             SV
@@ -100,9 +100,9 @@ export function Shell({
           </p>
         </div>
       </aside>
-      <main className="lg:pl-60">
-        <header className="sticky top-0 z-10 border-b border-white/10 bg-[#0b0b12]/90 px-4 py-4 backdrop-blur-xl sm:px-6">
-          <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4">
+      <main className="lg:pl-60 ">
+        <header className="sticky top-0 z-10 border-b border-white/10 bg-[#0b0b12]/90 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-6 ">
+          <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 ">
             <div>
               <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.22em] text-fuchsia-400">
                 {eyebrow || "Creator workspace"}
@@ -113,7 +113,7 @@ export function Shell({
             </div>
             <ThemeToggle />
           </div>
-          <div className="mt-4 flex gap-1 overflow-x-auto lg:hidden">
+          <div className="mt-4 flex gap-1 overflow-x-auto lg:hidden ">
             {nav.map(({ href, label }) => {
               const active =
                 href === "/" ? pathname === "/" : pathname.startsWith(href);
@@ -130,7 +130,7 @@ export function Shell({
             })}
           </div>
         </header>
-        <div className="mx-auto max-w-[1600px] px-4 py-5 sm:px-6 sm:py-7 lg:px-8">
+        <div className="mx-auto w-full max-w-[1600px] py-5 sm:py-7">
           {children}
         </div>
       </main>
@@ -139,7 +139,7 @@ export function Shell({
 }
 function ConfigNotice() {
   return (
-    <div className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-6">
+    <div className="rounded-2xl border border-amber-400/20 bg-amber-400/5 p-6 ">
       <div className="flex gap-3">
         <CircleAlert className="h-5 w-5 shrink-0 text-amber-300" />
         <div>
@@ -171,7 +171,7 @@ function Stat({
   accent: string;
 }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[.035] p-5">
+    <div className="rounded-2xl border border-white/10 bg-white/[.035] p-5 ">
       <div className={`mb-5 h-1 w-10 rounded-full ${accent}`} />
       <p className="text-sm text-slate-400">{label}</p>
       <p className="mt-2 text-3xl font-semibold tracking-tight">{value}</p>
@@ -198,7 +198,7 @@ function TrendCard({
   };
   void generating;
   return (
-    <div className="rounded-2xl border border-white/10 bg-white/[.035] p-5 transition hover:border-fuchsia-400/30">
+    <div className="rounded-2xl border border-white/10 bg-white/[.035] p-5 transition hover:border-fuchsia-400/30 ">
       <div className="flex items-start justify-between gap-3">
         <div>
           <span className="rounded-full bg-cyan-400/10 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-cyan-300">
@@ -386,7 +386,7 @@ export function DashboardHome() {
     );
   return (
     <Shell title="Your signal, at a glance" eyebrow="Overview">
-      <div className="mb-8 flex items-end justify-between">
+      <div className="mb-8 flex items-end justify-between ">
         <div>
           <p className="max-w-xl text-sm leading-6 text-slate-400">
             Discover the next video opportunity from YouTube, Reddit, and Google

@@ -1,5 +1,6 @@
 import { StateSkeleton } from "@/components/shared/async-states";
+import { Shell } from "./_components/intelligence-workspace";
 
 export default function DashboardLoading() {
-  return <main className="studio-shell min-h-screen px-4 py-8 sm:px-6"><div className="mx-auto max-w-[1600px]"><StateSkeleton variant="profile" /></div></main>;
+  return <Shell title="Loading workspace" eyebrow="Creator workspace"><StateSkeleton variant="profile" /></Shell>;
 }

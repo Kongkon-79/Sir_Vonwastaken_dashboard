@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useMutation } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,12 +19,11 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 // import { Checkbox } from "@/components/ui/checkbox";
 // import { Label } from "@/components/ui/label";
-import Link from "next/link";
+// import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import logo from "../../../../../../../public/assets/images/logo.png"
-import SuccessfullyApprovedModal from "@/components/modals/successfully-approved-modal";
+// import logo from "../../../../../../../public/assets/images/logo.png"
 
 const formSchema = z
   .object({
@@ -45,9 +44,9 @@ const formSchema = z
 const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [confirmShowPassword, setConfirmShowPassword] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const otp = searchParams.get("otp");
   const decodedEmail = decodeURIComponent(email || "")
   const router = useRouter();
  
@@ -63,8 +62,8 @@ const ResetPasswordForm = () => {
 
   const {mutate, isPending} = useMutation({
     mutationKey: ["reset-password"],
-    mutationFn : async (values: {email:string, newPassword:string})=>{
-      const res = await fetch(`/api/auth-backend/auth/reset-password`,{
+    mutationFn : async (values: {email:string, newPassword:string, otp:string})=>{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/update-password`,{
         method: "POST",
         headers: {
           "Content-Type" : "application/json"
@@ -74,17 +73,13 @@ const ResetPasswordForm = () => {
       return res.json();
     },
     onSuccess: (data)=>{
-      if(!data?.success){
+      if(!data?.status){
         toast.error(data?.message || "Something went wrong");
         return
       }else{
-        // toast.success(data?.message || "Password reset successfully");
-        // router.push("/login")
+        toast.success(data?.message || "Password reset successfully");
+        router.push("/login")
 
-         setIsOpen(true);
-        setTimeout(() => {
-          router.push("/login");
-        }, 5000);
       }
     }
   })
@@ -92,18 +87,19 @@ const ResetPasswordForm = () => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const payload ={
       email: decodedEmail,
-      newPassword: values?.password
+      newPassword: values?.password,
+      otp: otp || ""
     }
     mutate(payload)
   }
   return (
   <div className="w-full px-4 md:px-0  flex items-center justify-center">
       <div className="w-full md:w-[570px] bg-white rounded-[16px] border-[2px] border-[#E7E7E7] shadow-[0px_0px_32px_0px_#0000001F] p-5 md:p-6">
-      <div className="w-full flex items-center justify-center pb-6">
+      {/* <div className="w-full flex items-center justify-center pb-6">
         <Link href="/">
           <Image src={logo} alt="auth logo" width={500} height={500} className="w-[133px] h-[52px] object-contain " />
         </Link>
-      </div>
+      </div> */}
 
       <h3 className="text-2xl md:text-[32px] lg:text-[40px] font-bold text-[#131313] text-center leading-[120%] ">
         New Password
@@ -225,16 +221,6 @@ const ResetPasswordForm = () => {
           </div>
         </form>
       </Form>
-
-       {/* successfully modal  */}
-      {isOpen && (
-        <SuccessfullyApprovedModal
-          open={isOpen}
-          onOpenChange={() => setIsOpen(false)}
-          title="Password Changed Successfully"
-          desc="Your password has been updated successfully"
-        />
-      )}
     </div>
   </div>
 

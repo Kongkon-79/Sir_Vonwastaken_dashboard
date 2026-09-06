@@ -1,4 +1,4 @@
-// import { getToken } from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 import { NextResponse, NextRequest } from "next/server";
 
 const PUBLIC_ROUTES = [
@@ -21,14 +21,14 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // const token = await getToken({
-  //   req: request,
-  //   secret: process.env.NEXTAUTH_SECRET,
-  // });
+  const token = await getToken({
+    req: request,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
 
-  // if (!token || token.role !== "admin") {
-  //   return NextResponse.redirect(new URL("/login", request.url));
-  // }
+  if (!token || token.role !== "admin") {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   return NextResponse.next();
 }

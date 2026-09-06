@@ -2,9 +2,6 @@ import { NextAuthOptions } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL ||
-  `${process.env.NEXT_PUBLIC_API_ORIGIN || "http://localhost:5001"}/api/v1`;
 
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
@@ -22,6 +19,7 @@ export const authOptions: NextAuthOptions = {
           type: "password",
           placeholder: "password",
         },
+        rememberMe: { label: "Remember me", type: "checkbox" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -29,7 +27,9 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          const loginUrl = `${API_BASE_URL.replace(/\/$/, "")}/auth/login`;
+    
+
+          const loginUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/login`;
           const res = await fetch(
             loginUrl,
             {
@@ -47,13 +47,15 @@ export const authOptions: NextAuthOptions = {
 
           const response = await res.json();
 
-          if (!res.ok || !response?.success) {
+          if (!res.ok || !response?.status) {
             throw new Error(response?.message || "INVALID_CREDENTIALS");
           }
 
-          const { user, accessToken } = response.data || {};
+          // The backend returns user and token at the top level. Keep the
+          // nested fallback for compatibility with older API deployments.
+          const { user, token } = response.data || response;
 
-          if (!user || !accessToken) {
+          if (!user || !token) {
             throw new Error("Authentication response is missing user data");
           }
 
@@ -64,13 +66,13 @@ export const authOptions: NextAuthOptions = {
           }
 
           return {
-            id: user._id,
+            id: user.id,
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
             role: normalizedRole,
-            profileImage: user.profileImage,
-            accessToken,
+            // profileImage: user.profileImage,
+            token,
           };
         } catch (error) {
           console.error("Authentication error:", error);
@@ -95,8 +97,8 @@ export const authOptions: NextAuthOptions = {
         token.lastName = user.lastName;
         token.email = user.email;
         token.role = user.role;
-        token.profileImage = user.profileImage;
-        token.accessToken = user.accessToken;
+        // token.profileImage = user.profileImage;
+        token.token = user.token;
       }
       return token;
     },
@@ -109,8 +111,8 @@ export const authOptions: NextAuthOptions = {
         lastName: token.lastName,
         email: token.email,
         role: token.role,
-        profileImage: token.profileImage,
-        accessToken: token.accessToken,
+        // profileImage: token.profileImage,
+        token: token.token,
       };
       return session;
     },

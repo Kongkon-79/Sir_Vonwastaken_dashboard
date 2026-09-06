@@ -3,6 +3,7 @@ import type React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
+import { signOut } from "next-auth/react";
 import {
   Activity,
   ArrowUpRight,
@@ -13,6 +14,7 @@ import {
   FileText,
   Gauge,
   Globe2,
+  LogOut,
   Mail,
   RefreshCw,
   Search,
@@ -38,6 +40,7 @@ import {
 } from "@/lib/intelligence-hooks";
 import { toast } from "sonner";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import LogoutModal from "@/components/modals/logout-modal";
 import {
   StateEmpty,
   StateError,
@@ -63,6 +66,13 @@ export function Shell({
   eyebrow?: string;
 }) {
   const pathname = usePathname();
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  const handleLogout = async () => {
+    setIsLogoutModalOpen(false);
+    await signOut({ callbackUrl: "/login" });
+  };
+
   return (
     <div className="studio-shell min-h-screen ">
       <aside className="fixed inset-y-0 z-20 hidden w-60 border-r border-white/10 bg-[#10101a] px-4 py-5 lg:block ">
@@ -91,15 +101,22 @@ export function Shell({
             );
           })}
         </nav>
-        <div className="absolute bottom-5 left-4 right-4 rounded-2xl border border-cyan-400/20 bg-cyan-400/5 p-4">
-          <p className="text-xs font-medium text-cyan-300">
-            Creator intelligence
-          </p>
-          <p className="mt-1 text-xs leading-5 text-slate-500">
-            Connected to your hosted backend when configured.
-          </p>
+        <div className="absolute bottom-5 left-4 right-4">
+          <button
+            type="button"
+            onClick={() => setIsLogoutModalOpen(true)}
+            className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-rose-400/25 bg-rose-400/10 px-3 py-2.5 text-sm font-medium text-rose-200 transition hover:bg-rose-400/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300/60"
+          >
+            <LogOut className="h-4 w-4" />
+            Log out
+          </button>
         </div>
       </aside>
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onClose={() => setIsLogoutModalOpen(false)}
+        onConfirm={handleLogout}
+      />
       <main className="lg:pl-60 ">
         <header className="sticky top-0 z-10 border-b border-white/10 bg-[#0b0b12]/90 px-4 py-4 backdrop-blur-xl sm:px-6 lg:px-6 ">
           <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 ">

@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import logo from "../../../../../../public/assets/images/logo.png"
+// import Link from "next/link";
+// import Image from "next/image";
+// import logo from "../../../../../../public/assets/images/logo.png"
 
 export default function OtpForm() {
   const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
@@ -71,7 +71,7 @@ export default function OtpForm() {
   const { mutate, isPending } = useMutation({
     mutationKey: ["verify-otp"],
     mutationFn: (values: { otp: string; email: string }) =>
-      fetch(`/api/auth-backend/auth/verify`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/verify-otp`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -79,13 +79,13 @@ export default function OtpForm() {
         body: JSON.stringify(values),
       }).then((res) => res.json()),
     onSuccess: (data) => {
-      if (!data?.success) {
+      if (!data?.status) {
         toast.error(data?.message || "Something went wrong");
         return;
       } else {
         toast.success(data?.message || "Email sent successfully!");
         router.push(
-          `/forgot-password/otp/reset-password?email=${encodeURIComponent(decodedEmail)}`
+          `/forgot-password/otp/reset-password?email=${encodeURIComponent(decodedEmail)}&otp=${encodeURIComponent(otp.join(""))}`
         );
       }
     },
@@ -95,7 +95,7 @@ export default function OtpForm() {
   const { mutate: resentOtp, isPending: resentOtpPending } = useMutation({
     mutationKey: ["fotgot-password"],
     mutationFn: (email: string) =>
-      fetch(`/api/auth-backend/auth/forgot-password`, {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/forgot-password`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -103,7 +103,7 @@ export default function OtpForm() {
         body: JSON.stringify({ email }),
       }).then((res) => res.json()),
     onSuccess: (data, email) => {
-      if (!data?.success) {
+      if (!data?.status) {
         toast.error(data?.message || "Something went wrong");
         return;
       } else {
@@ -151,11 +151,11 @@ export default function OtpForm() {
   return (
     <div className="w-full px-4 md:px-0  flex items-center justify-center">
       <div className="w-full md:w-[570px] bg-white rounded-[16px] border-[2px] border-[#E7E7E7] shadow-[0px_0px_32px_0px_#0000001F] p-5 md:p-6">
-        <div className="w-full flex items-center justify-center pb-6">
+        {/* <div className="w-full flex items-center justify-center pb-6">
           <Link href="/">
           <Image src={logo} alt="auth logo" width={500} height={500} className="w-[133px] h-[52px] object-contain " />
           </Link>
-        </div>
+        </div> */}
 
         <h3 className="text-2xl md:text-[32px] lg:text-[40px] font-bold text-[#131313] text-center leading-[120%] ">
           Enter OTP

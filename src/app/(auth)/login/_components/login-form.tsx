@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from 'next/image'
+// import Image from 'next/image'
 
 import { Button } from "@/components/ui/button";
 import {
@@ -23,7 +23,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 
-import logo from "../../../../../public/assets/images/logo.png"
+// import logo from "../../../../../public/assets/images/logo.png"
 
 const formSchema = z.object({
   email: z.string().email({
@@ -53,8 +53,9 @@ const LoginForm = () => {
       setIsLoading(true);
 
       const res = await signIn("credentials", {
-        email: values.email,
+        email: values.email.trim().toLowerCase(),
         password: values.password,
+        rememberMe: String(values.rememberMe),
         redirect: false,
         callbackUrl: "/",
       });
@@ -98,11 +99,11 @@ const LoginForm = () => {
   return (
     <div className="w-full px-4 md:px-0  flex items-center justify-center">
       <div className="w-full md:w-[570px] bg-white rounded-[16px] border-[2px] border-[#E7E7E7] shadow-[0px_0px_32px_0px_#0000001F] p-5 md:p-6">
-        <div className="w-full flex items-center justify-center">
+        {/* <div className="w-full flex items-center justify-center">
           <Link href="/">
             <Image src={logo} alt="auth logo" width={500} height={500} className="w-[133px] h-[52px] object-contain " />
           </Link>
-        </div>
+        </div> */}
 
         <h3 className="text-2xl md:text-[32px] lg:text-[40px] font-bold text-[#131313] text-center leading-[120%] pt-3">
           Welcome Back!

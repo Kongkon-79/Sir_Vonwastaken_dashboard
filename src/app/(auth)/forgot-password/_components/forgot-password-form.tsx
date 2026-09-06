@@ -3,9 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useMutation } from "@tanstack/react-query";
-import logo from "../../../../../public/assets/images/logo.png"
+// import logo from "../../../../../public/assets/images/logo.png"
 
 import { Button } from "@/components/ui/button";
 import {
@@ -41,7 +41,7 @@ const ForgotPasswordForm = () => {
   const {mutate, isPending} = useMutation({
     mutationKey: ["forgot-password"],
     mutationFn : async (values:{email:string})=>{
-      const res = await fetch(`/api/auth-backend/auth/forgot-password`,{
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/forgot-password`,{
         method : "POST",
         headers: {
           "Content-Type" : "application/json"
@@ -51,7 +51,7 @@ const ForgotPasswordForm = () => {
       return res.json();
     },
     onSuccess: (data, email)=>{
-      if(!data?.success){
+      if(!data?.status){
         toast?.error(data?.message || "Something went wrong");
         return
       }
@@ -68,11 +68,11 @@ const ForgotPasswordForm = () => {
   return (
     <div className="w-full px-4 md:px-0  flex items-center justify-center">
       <div className="w-full md:w-[570px] bg-white rounded-[16px] border-[2px] border-[#E7E7E7] shadow-[0px_0px_32px_0px_#0000001F] p-5 md:p-6">
-        <div className="w-full flex items-center justify-center pb-6">
+        {/* <div className="w-full flex items-center justify-center pb-6">
           <Link href="/">
           <Image src={logo} alt="auth logo" width={500} height={500} className="w-[133px] h-[52px] object-contain " />
           </Link>
-        </div>
+        </div> */}
 
         <h3 className="text-2xl md:text-[32px] lg:text-[40px] font-bold text-[#131313] text-center leading-[120%] ">
           Forgot Password
